@@ -9,15 +9,18 @@ public class SavingAccount extends Account {//储蓄卡类
         super(balance, type);
     }
 
-    public void savingInterest(int day, int month) {
+    public boolean savingInterest(int day, int month) {
+        if(day<1||day > 365) return false;
+        if(month<1||month>12) return false;
         GregorianCalendar calendar = new GregorianCalendar();
-        int days_of_year = calendar.get(Calendar.DAY_OF_YEAR);//获取当前年份
+        int days_of_year = calendar.isLeapYear(2021)?366:365;//获取当前年份
         System.out.println("DDD"+days_of_year);
         notAddInterest += balance * 0.00125 / days_of_year * day;
         if (month == 6 || month == 12) {
             balance += notAddInterest;
             notAddInterest = 0;
         }
+        return true;
     }
 
 

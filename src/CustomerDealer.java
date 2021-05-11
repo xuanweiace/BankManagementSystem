@@ -34,6 +34,7 @@ public class CustomerDealer {//用这个类来处理用户对该银行账户的�
         setDealer(customer);
         boolean running = true, state = false;
         double money;
+        int day, month;
         while (running) {
             showMenu();
             int choice = getChoice(in);
@@ -104,6 +105,28 @@ public class CustomerDealer {//用这个类来处理用户对该银行账户的�
                     System.out.println("---End to print-----");
                     break;
                 case 9:
+                    System.out.println("Please input day(1~365) and month(1-12).(month 6 and 12 to be interest payment)");
+                    day = in.nextInt();
+                    month = in.nextInt();
+                    state = savingAccount != null && savingAccount.savingInterest(day, month);
+                    if (state) System.out.println("***Successful***");
+                    else System.out.println("***Failed***");
+                    break;
+                case 10:
+                    System.out.println("Please input number of month(1-12) to pay MonthlyFee.");
+                    month = in.nextInt();
+                    state = overdraftAccount != null && overdraftAccount.payMonthlyFee(month);
+                    if (state) System.out.println("***Successful***");
+                    else System.out.println("***Failed***");
+                    break;
+                case 11:
+                    System.out.println("Please input number of month(1-12) to pay MonthlyFee.");
+                    month = in.nextInt();
+                    state = locAccount != null && locAccount.payMonthlyFee(month);
+                    if (state) System.out.println("***Successful***");
+                    else System.out.println("***Failed***");
+                    break;
+                case 12:
                     running = false;
                     System.out.println("Bye!");
                     break;
@@ -149,7 +172,10 @@ public class CustomerDealer {//用这个类来处理用户对该银行账户的�
         System.out.println("******6、deposit LOC account*****************");
         System.out.println("******7、withdraw LOC account*****************");
         System.out.println("******8、print info*****************");
-        System.out.println("******9、exit*****************");
+        System.out.println("******9、saving interest on saving account*****************");
+        System.out.println("******10、pay monthly fee on overdraft protection account*****************");
+        System.out.println("******11、pay monthly fee on LOC account*****************");
+        System.out.println("******12、exit*****************");
 
     }
 }
